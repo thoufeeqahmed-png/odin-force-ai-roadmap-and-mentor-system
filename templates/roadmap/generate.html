@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Forge Your Personalized Roadmap — ODIN FORCE{% endblock %}
+
+{% block content %}
+<section class="generator-section asgard-forge">
+    <div class="container">
+        <!-- Breadcrumb / Header -->
+        <div class="generator-header text-center">
+            <div class="generator-badge">
+                <span class="badge-rune">ᚱᛟ</span>
+                <span class="badge-icon">⚡</span>
+                <span>ODIN FORCE Roadmap Forge</span>
+            </div>
+            <h1 class="page-title">State Your Realm & Goal. <span class="text-gradient-asgard">The Council Will Map The Path.</span></h1>
+            <p class="page-subtitle">
+                Fill in your ambitions below. <strong>ODIN FORCE</strong> synthesizes an actionable, step-by-step master roadmap for <strong>ANY domain</strong> you choose.
+            </p>
+        </div>
+
+        <div class="generator-grid">
+            <!-- Form Column -->
+            <div class="generator-form-card asgard-card">
+                <div class="form-card-header">
+                    <div class="card-icon-box">⚡</div>
+                    <div>
+                        <h2>Roadmap Forge Parameters</h2>
+                        <p>Calibrate your pace, realm, and baseline skills.</p>
+                    </div>
+                </div>
+
+                <!-- Quick Domain Inspiration Chips -->
+                <div class="inspiration-presets">
+                    <span class="presets-label">⚡ Click any realm preset to quick-fill:</span>
+                    <div class="preset-pills">
+                        <button type="button" class="preset-pill" onclick="fillPreset('Artificial Intelligence', 'Beginner', 'Become an AI Engineer & Deploy LLMs', '2 hours per day', '6 months', 'Python basics')">
+                            🤖 AI Engineer (6 mo)
+                        </button>
+                        <button type="button" class="preset-pill" onclick="fillPreset('Web Development', 'Complete Beginner', 'Build and deploy full-stack web applications', '1 hour per day', '3 months', 'None')">
+                            💻 Full-Stack Web Dev (3 mo)
+                        </button>
+                        <button type="button" class="preset-pill" onclick="fillPreset('Digital Photography', 'Beginner', 'Launch a portrait & landscape studio', '1 hour per day', '3 months', 'Smartphone photography')">
+                            📷 Photography Studio (3 mo)
+                        </button>
+                        <button type="button" class="preset-pill" onclick="fillPreset('Financial Investing', 'Intermediate', 'Build a resilient multi-asset portfolio', '30 minutes per day', '1 year', 'Basic savings')">
+                            📈 Investing & Markets (1 yr)
+                        </button>
+                        <button type="button" class="preset-pill" onclick="fillPreset('UI/UX Design', 'Beginner', 'Design production design systems in Figma', '2 hours per day', '6 months', 'Figma basics')">
+                            🎨 UI/UX Design (6 mo)
+                        </button>
+                        <button type="button" class="preset-pill" onclick="fillPreset('Cybersecurity', 'Beginner', 'Ethical Hacking & Cloud Security Engineer', '2 hours per day', '6 months', 'Basic networking')">
+                            🔒 Cybersecurity (6 mo)
+                        </button>
+                    </div>
+                </div>
+
+                <form method="post" action="{% url 'generate_roadmap' %}" id="roadmap-generator-form" class="roadmap-form">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="form-alert error">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    <!-- User Name Field -->
+                    <div class="form-group">
+                        <label for="{{ form.user_name.id_for_label }}" class="form-label">
+                            {{ form.user_name.label }}
+                        </label>
+                        {{ form.user_name }}
+                        {% if form.user_name.errors %}
+                        <span class="field-error">{{ form.user_name.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Domain Field -->
+                    <div class="form-group">
+                        <label for="{{ form.domain.id_for_label }}" class="form-label required">
+                            {{ form.domain.label }} <span class="required-star">*</span>
+                        </label>
+                        {{ form.domain }}
+                        <span class="field-help">{{ form.domain.help_text }}</span>
+                        {% if form.domain.errors %}
+                        <span class="field-error">{{ form.domain.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Current Level Field -->
+                    <div class="form-group">
+                        <label for="{{ form.current_level.id_for_label }}" class="form-label required">
+                            {{ form.current_level.label }} <span class="required-star">*</span>
+                        </label>
+                        {{ form.current_level }}
+                        {% if form.current_level.errors %}
+                        <span class="field-error">{{ form.current_level.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Goal Field -->
+                    <div class="form-group">
+                        <label for="{{ form.goal.id_for_label }}" class="form-label required">
+                            {{ form.goal.label }} <span class="required-star">*</span>
+                        </label>
+                        {{ form.goal }}
+                        <span class="field-help">{{ form.goal.help_text }}</span>
+                        {% if form.goal.errors %}
+                        <span class="field-error">{{ form.goal.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Available Time & Duration (Two Column Layout) -->
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="{{ form.available_time.id_for_label }}" class="form-label required">
+                                {{ form.available_time.label }} <span class="required-star">*</span>
+                            </label>
+                            {{ form.available_time }}
+                            {% if form.available_time.errors %}
+                            <span class="field-error">{{ form.available_time.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.duration.id_for_label }}" class="form-label required">
+                                {{ form.duration.label }} <span class="required-star">*</span>
+                            </label>
+                            {{ form.duration }}
+                            {% if form.duration.errors %}
+                            <span class="field-error">{{ form.duration.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Existing Skills Field -->
+                    <div class="form-group">
+                        <label for="{{ form.existing_skills.id_for_label }}" class="form-label">
+                            {{ form.existing_skills.label }}
+                        </label>
+                        {{ form.existing_skills }}
+                        <span class="field-help">{{ form.existing_skills.help_text }}</span>
+                        {% if form.existing_skills.errors %}
+                        <span class="field-error">{{ form.existing_skills.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Mentor Selection Field -->
+                    <div class="form-group mentor-selection-group">
+                        <label class="form-label">
+                            {{ form.mentor.label }}
+                        </label>
+                        <span class="field-help">{{ form.mentor.help_text }}</span>
+                        <div class="mentor-radio-group">
+                            {% for radio in form.mentor %}
+                            <label class="mentor-radio-label">
+                                {{ radio.tag }}
+                                <span class="radio-text">{{ radio.choice_label }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                        {% if form.mentor.errors %}
+                        <span class="field-error">{{ form.mentor.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit Button with Loading State -->
+                    <div class="form-submit-wrapper">
+                        <button type="submit" class="btn btn-lg btn-primary btn-block asgard-glow-btn" id="generate-submit-btn">
+                            <span class="btn-rune">ᚱ</span>
+                            <span class="btn-text">Forge My Roadmap with ODIN FORCE</span>
+                            <span class="btn-icon-right">⚡</span>
+                        </button>
+                        <p class="submit-note">🛡️ Private & saved locally. You can track progress or consult the Council anytime.</p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ODIN FORCE Sidebar / Helper Card -->
+            <div class="generator-sidebar">
+                <div class="assistant-helper-card asgard-card">
+                    <div class="helper-avatar-box">
+                        <img src="{% static 'images/ta_junior.svg' %}" alt="ODIN FORCE" class="helper-avatar-img">
+                        <div class="helper-status-tag">Bifrost Ready • Active</div>
+                    </div>
+
+                    <h3 class="helper-title">Message from the Council</h3>
+                    
+                    <div class="helper-speech-bubble">
+                        <p id="dynamic-helper-tip">
+                            "Hail, traveler! Fear not if you are starting from complete scratch. The Council calibrates every stage to your current knowledge. Take a breath and let us begin the forging!"
+                        </p>
+                    </div>
+
+                    <div class="helper-guarantees">
+                        <div class="guarantee-item">
+                            <span class="guarantee-icon">👁️</span>
+                            <div>
+                                <strong>Odin's Vision</strong>
+                                <p>Deep, coherent structure connecting fundamentals directly to real-world mastery.</p>
+                            </div>
+                        </div>
+
+                        <div class="guarantee-item">
+                            <span class="guarantee-icon">⚡</span>
+                            <div>
+                                <strong>Thor's Daily Drills</strong>
+                                <p>Actionable, high-impact practice tasks calibrated to your exact daily study time.</p>
+                            </div>
+                        </div>
+
+                        <div class="guarantee-item">
+                            <span class="guarantee-icon">🐍</span>
+                            <div>
+                                <strong>Loki's Smart Hacks</strong>
+                                <p>The 80/20 shortcuts and creative debugging angles that save you weeks of frustration.</p>
+                            </div>
+                        </div>
+
+                        <div class="guarantee-item">
+                            <span class="guarantee-icon">🌱</span>
+                            <div>
+                                <strong>Zero Judgment Zone</strong>
+                                <p>A friendly, kind companion cheering your every milestone without any stress.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Generation Loading Modal -->
+<div class="loading-overlay" id="loading-overlay" style="display: none;">
+    <div class="loading-card asgard-card">
+        <div class="loading-spinner-avatar">
+            <img src="{% static 'images/ta_junior.svg' %}" alt="ODIN FORCE" class="loading-avatar-img">
+            <div class="spinner-ring"></div>
+        </div>
+        <h3 class="loading-title">ODIN FORCE is forging your roadmap...</h3>
+        <p class="loading-text" id="loading-status-text">Summoning Allfather Odin's strategic vision & foundational runes...</p>
+        <div class="loading-progress-bar">
+            <div class="loading-progress-fill" id="loading-progress-fill"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function fillPreset(domain, level, goal, time, duration, skills) {
+    document.getElementById('id_domain').value = domain;
+    document.getElementById('id_current_level').value = level;
+    document.getElementById('id_goal').value = goal;
+    document.getElementById('id_available_time').value = time;
+    document.getElementById('id_duration').value = duration;
+    document.getElementById('id_existing_skills').value = skills;
+
+    // Pulse animation
+    const formCard = document.querySelector('.generator-form-card');
+    formCard.classList.add('pulse-highlight');
+    setTimeout(() => formCard.classList.remove('pulse-highlight'), 600);
+
+    // Update dynamic helper text
+    const helperTip = document.getElementById('dynamic-helper-tip');
+    if (helperTip) {
+        helperTip.innerHTML = `⚡ Excellent choice! Forging a master path in <strong>${domain}</strong> toward <em>'${goal}'</em>. Click <strong>Forge My Roadmap</strong> to unleash the full plan!`;
+    }
+}
+
+// Form submit animation
+const form = document.getElementById('roadmap-generator-form');
+const loadingOverlay = document.getElementById('loading-overlay');
+const statusText = document.getElementById('loading-status-text');
+
+if (form && loadingOverlay) {
+    form.addEventListener('submit', function(e) {
+        const domainInput = document.getElementById('id_domain');
+        const goalInput = document.getElementById('id_goal');
+        if (domainInput && domainInput.value.trim() && goalInput && goalInput.value.trim()) {
+            loadingOverlay.style.display = 'flex';
+            
+            const steps = [
+                "👁️ Consulting Allfather Odin for deep strategic milestones...",
+                "⚡ Channeling Thor's power for hands-on drills & practice tasks...",
+                "🐍 Weaving Loki's clever 80/20 shortcuts and debugging hacks...",
+                "🌱 Calibrating weekly pacing with ODIN FORCE companion..."
+            ];
+            let idx = 0;
+            const interval = setInterval(() => {
+                idx = (idx + 1) % steps.length;
+                if (statusText) statusText.textContent = steps[idx];
+            }, 1200);
+        }
+    });
+}
+</script>
+{% endblock %}

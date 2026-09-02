@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Roadmap Library — ODIN FORCE{% endblock %}
+
+{% block content %}
+<section class="history-section asgard-history">
+    <div class="container">
+        <!-- History Header -->
+        <div class="history-header">
+            <div>
+                <div class="history-badge">
+                    <span class="badge-rune">📜</span>
+                    <span>Asgardian Learning Archives</span>
+                </div>
+                <h1 class="page-title">Roadmap <span class="text-gradient-asgard">Library</span></h1>
+                <p class="page-subtitle">Revisit your forged roadmaps, resume daily guidance, or manage your conquered realms.</p>
+            </div>
+
+            <div class="header-action-btn">
+                <a href="{% url 'generate_roadmap' %}" class="btn btn-primary asgard-glow-btn">
+                    <span class="btn-rune">ᚱ</span>
+                    <span>+ Forge New Roadmap</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="history-filter-bar asgard-card">
+            <form method="get" action="{% url 'roadmap_history' %}" class="search-form">
+                <div class="search-input-wrap">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" name="q" value="{{ query }}" class="search-input" placeholder="Search saved roadmaps by realm, domain, or goal...">
+                    {% if query %}
+                    <a href="{% url 'roadmap_history' %}" class="search-clear-btn">✕ Clear</a>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-md btn-secondary">Search Archives</button>
+            </form>
+        </div>
+
+        <!-- Roadmaps Cards Grid -->
+        {% if roadmaps %}
+        <div class="roadmaps-grid">
+            {% for roadmap in roadmaps %}
+            <div class="history-card asgard-card" id="history-card-{{ roadmap.pk }}">
+                <div class="history-card-top">
+                    <div class="domain-pill-sm">{{ roadmap.domain }}</div>
+                    <div class="history-date">{{ roadmap.created_at|date:"M d, Y" }}</div>
+                </div>
+
+                <h3 class="history-goal-title">
+                    <a href="{% url 'roadmap_detail' pk=roadmap.pk %}">{{ roadmap.goal }}</a>
+                </h3>
+
+                <div class="history-meta-list">
+                    <div class="meta-row">
+                        <span class="meta-label">Level:</span>
+                        <span class="meta-val">{{ roadmap.current_level }}</span>
+                    </div>
+                    <div class="meta-row">
+                        <span class="meta-label">Pace:</span>
+                        <span class="meta-val">{{ roadmap.available_time }} ({{ roadmap.duration }})</span>
+                    </div>
+                    <div class="meta-row">
+                        <span class="meta-label">Stages:</span>
+                        <span class="meta-val">{{ roadmap.stages.count }} Stages</span>
+                    </div>
+                </div>
+
+                <!-- Mini Progress Bar -->
+                <div class="history-progress-wrap">
+                    <div class="progress-bar-labels">
+                        <span>Conquest Progress</span>
+                        <strong>{{ roadmap.progress_percentage }}%</strong>
+                    </div>
+                    <div class="history-progress-bg">
+                        <div class="history-progress-fill" style="width: {{ roadmap.progress_percentage }}%;"></div>
+                    </div>
+                </div>
+
+                <!-- Action Footer -->
+                <div class="history-card-footer">
+                    <a href="{% url 'roadmap_detail' pk=roadmap.pk %}" class="btn btn-sm btn-primary">
+                        <span>Open Realm</span>
+                        <span class="btn-arrow">→</span>
+                    </a>
+                    <a href="{% url 'roadmap_daily_guidance' pk=roadmap.pk %}" class="btn btn-sm btn-outline" title="Today's Guidance">
+                        <span>⚡ Daily</span>
+                    </a>
+                    <!-- Delete Form with Confirmation Dialog -->
+                    <form method="post" action="{% url 'delete_roadmap' pk=roadmap.pk %}" class="delete-form" onsubmit="return confirm('Are you sure you want to delete the roadmap for {{ roadmap.domain|escapejs }}? This cannot be undone.');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger-ghost" title="Delete Roadmap">
+                            <span>🗑️</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Empty State -->
+        <div class="history-empty-state asgard-card">
+            <div class="empty-avatar">
+                <img src="{% static 'images/ta_junior.svg' %}" alt="ODIN FORCE" class="empty-avatar-img">
+            </div>
+            <h3>{% if query %}No roadmaps matched "{{ query }}" in the archives{% else %}No roadmaps forged yet in the archives!{% endif %}</h3>
+            <p>Tell the Council of Asgard about your ambitions, and forge your very first master learning path in seconds.</p>
+            <div class="empty-cta">
+                <a href="{% url 'generate_roadmap' %}" class="btn btn-lg btn-primary asgard-glow-btn">
+                    <span class="btn-rune">ᚱ</span>
+                    <span>Forge Your First Roadmap</span>
+                    <span class="btn-icon-right">⚡</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

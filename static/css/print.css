@@ -1,0 +1,60 @@
+/* ==========================================================================
+   ODIN TA JUNIOR — PRINT & EXPORT STYLESHEET
+   Optimized for physical printing & PDF generation
+   ========================================================================== */
+
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 12pt;
+    }
+
+    .site-header,
+    .site-footer,
+    .topbar-actions,
+    .back-link,
+    .roadmap-bottom-cta,
+    .stage-ask-box,
+    .delete-form,
+    .header-actions,
+    .toast-container,
+    .loading-overlay {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .roadmap-hero-card,
+    .ta-junior-message-card,
+    .stage-card,
+    .overview-section,
+    .why-it-matters-box,
+    .task-item,
+    .practice-box,
+    .projects-box {
+        background: #ffffff !important;
+        color: #111827 !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+
+    .roadmap-title {
+        color: #111827 !important;
+        font-size: 20pt !important;
+    }
+
+    .text-gradient {
+        background: none !important;
+        -webkit-text-fill-color: #111827 !important;
+        color: #111827 !important;
+    }
+
+    .stage-card {
+        margin-bottom: 20pt;
+    }
+}

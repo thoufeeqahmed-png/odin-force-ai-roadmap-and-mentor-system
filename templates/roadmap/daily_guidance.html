@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Daily Guidance — ODIN FORCE{% endblock %}
+
+{% block content %}
+<section class="daily-guidance-section asgard-daily">
+    <div class="container">
+        <!-- Daily Header -->
+        <div class="daily-header text-center">
+            <div class="daily-badge">
+                <span class="badge-rune">ᚦ⚡</span>
+                <span>Thor's Thunder Focus & Daily Action Plan</span>
+            </div>
+            <h1 class="page-title">Today's <span class="text-gradient-asgard">Action Plan</span></h1>
+            <p class="page-subtitle">
+                One focused concept, Thor's relentless practice drill, and Loki's smart hack.
+            </p>
+        </div>
+
+        <!-- Roadmap Switcher / Context Bar -->
+        <div class="guidance-context-bar asgard-card">
+            <div class="context-left">
+                <span class="context-label">Active Realm:</span>
+                <a href="{% url 'roadmap_detail' pk=roadmap.pk %}" class="context-title-link">
+                    <strong>{{ roadmap.domain }}:</strong> {{ roadmap.goal }}
+                </a>
+            </div>
+            <div class="context-right">
+                <a href="{% url 'roadmap_detail' pk=roadmap.pk %}" class="btn btn-sm btn-outline">View Full Roadmap →</a>
+            </div>
+        </div>
+
+        <!-- Mentor Display Card -->
+        <div class="daily-mentor-card asgard-card">
+            {% if roadmap.mentor == 'odin' %}
+                <div class="mentor-display mentor-odin">
+                    <img src="{% static 'images/mentor_odin.jpg' %}" alt="ODIN" class="mentor-daily-avatar">
+                    <div class="mentor-daily-message">
+                        <h4>👁️ Allfather ODIN</h4>
+                        <p>"Today's lesson connects to your grand vision. Focus on the strategic principle, not the details. Every step forward builds your mastery."</p>
+                    </div>
+                </div>
+            {% elif roadmap.mentor == 'thor' %}
+                <div class="mentor-display mentor-thor">
+                    <img src="{% static 'images/mentor_thor.jpg' %}" alt="THOR" class="mentor-daily-avatar">
+                    <div class="mentor-daily-message">
+                        <h4>⚡ THOR the Mighty</h4>
+                        <p>"No more thinking! Get to action RIGHT NOW! 25 uninterrupted minutes of focused practice. Let's strike the anvil and build something real!"</p>
+                    </div>
+                </div>
+            {% elif roadmap.mentor == 'loki' %}
+                <div class="mentor-display mentor-loki">
+                    <img src="{% static 'images/mentor_loki.jpg' %}" alt="LOKI" class="mentor-daily-avatar">
+                    <div class="mentor-daily-message">
+                        <h4>🐍 Loki the Clever</h4>
+                        <p>"Here's the secret: 80% of today's value comes from just understanding this one core concept. Skip the boring stuff and focus on what matters. Smart learning wins!"</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="daily-grid">
+            <!-- Main Daily Guidance Card -->
+            <div class="daily-main-card">
+                <!-- 1. Today's Goal -->
+                <div class="daily-block today-goal-block asgard-card">
+                    <div class="daily-block-header">
+                        <div class="block-icon goal-icon">👁️</div>
+                        <div>
+                            <span class="block-eyebrow">STEP 1 • ODIN'S VISION</span>
+                            <h2 class="block-title">Today's Strategic Goal</h2>
+                        </div>
+                    </div>
+                    <div class="goal-box">
+                        <p class="goal-text">
+                            {% if next_task %}
+                            Forge meaningful progress on <strong>{{ current_stage.title }}</strong> by mastering <em>"{{ next_task.title }}"</em>.
+                            {% else %}
+                            🎉 <strong>Valhalla Achieved!</strong> You have conquered every task in this roadmap! Review your portfolio or forge a new realm!
+                            {% endif %}
+                        </p>
+                        <div class="goal-stage-meta">
+                            <span>Stage Focus: <strong>{{ current_stage.title }}</strong></span>
+                            <span>Target Daily Focus: <strong>{{ roadmap.available_time }}</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. What to Learn -->
+                <div class="daily-block what-to-learn-block asgard-card">
+                    <div class="daily-block-header">
+                        <div class="block-icon learn-icon">📚</div>
+                        <div>
+                            <span class="block-eyebrow">STEP 2 • WHAT TO LEARN</span>
+                            <h2 class="block-title">Core Concept to Master</h2>
+                        </div>
+                    </div>
+                    
+                    <div class="today-task-card">
+                        {% if next_task %}
+                        <div class="today-task-header">
+                            <span class="task-type-badge type-{{ next_task.task_type }}">{{ next_task.get_task_type_display }}</span>
+                            <h3 class="today-task-title">{{ next_task.title }}</h3>
+                        </div>
+                        <p class="today-task-desc">{{ next_task.description }}</p>
+                        
+                        <div class="today-task-actions">
+                            <form method="post" action="{% url 'toggle_task' pk=next_task.pk %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-md btn-success asgard-glow-btn" id="complete-today-task-btn">
+                                    <span>✓ Mark Concept Mastered</span>
+                                </button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <p class="all-done-note">All learning concepts in this realm have been conquered!</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- 3. Thor's Thunder Practice Task -->
+                <div class="daily-block practice-task-block asgard-card">
+                    <div class="daily-block-header">
+                        <div class="block-icon practice-icon">⚡</div>
+                        <div>
+                            <span class="block-eyebrow">STEP 3 • THOR'S DRILL</span>
+                            <h2 class="block-title">Thunder Practice Drill</h2>
+                        </div>
+                    </div>
+
+                    <div class="practice-box-daily">
+                        {% if current_stage.what_to_practice %}
+                        <p class="practice-daily-instructions">{{ current_stage.what_to_practice|linebreaksbr }}</p>
+                        {% else %}
+                        <p class="practice-daily-instructions">Spend 20 minutes building a miniature prototype or writing 3 summary flashcards testing the concept you just learned.</p>
+                        {% endif %}
+                        <div class="practice-checklist">
+                            <label class="daily-check-item">
+                                <input type="checkbox" class="session-check">
+                                <span>Read & explore the core concept deeply (20 mins)</span>
+                            </label>
+                            <label class="daily-check-item">
+                                <input type="checkbox" class="session-check">
+                                <span>Hands-on Thor practice & code experimentation (25 mins)</span>
+                            </label>
+                            <label class="daily-check-item">
+                                <input type="checkbox" class="session-check">
+                                <span>Record 3 bullet takeaways in your grimoire / notes (5 mins)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Loki's Daily Creative Hack -->
+                <div class="daily-block loki-block asgard-card">
+                    <div class="daily-block-header">
+                        <div class="block-icon loki-icon">🐍</div>
+                        <div>
+                            <span class="block-eyebrow">BONUS • LOKI'S SHORTCUT</span>
+                            <h2 class="block-title">Loki's 80/20 Creative Hack</h2>
+                        </div>
+                    </div>
+
+                    <div class="loki-hack-speech">
+                        <p class="loki-body">
+                            {{ loki_hack|linebreaksbr }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5. ODIN FORCE Companion Advice -->
+                <div class="daily-block advice-block asgard-card">
+                    <div class="daily-block-header">
+                        <div class="block-icon advice-icon">🌱</div>
+                        <div>
+                            <span class="block-eyebrow">SUPPORT & MOTIVATION</span>
+                            <h2 class="block-title">ODIN FORCE Encouragement</h2>
+                        </div>
+                    </div>
+
+                    <div class="ta-junior-daily-speech">
+                        <div class="speech-quote-mark">“</div>
+                        <p class="speech-body">
+                            "Focus on understanding today's single step. You don't need to conquer all 9 realms in one afternoon. Showing up and dedicating <strong>{{ roadmap.available_time }}</strong> is all it takes to achieve true, permanent mastery."
+                        </p>
+                        <div class="speech-footer">
+                            <span class="speech-author">— ODIN FORCE</span>
+                            <span class="speech-author-sub">Your Faithful Asgardian Companion</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Sidebar Tools -->
+            <div class="daily-sidebar">
+                <!-- Thor's Thunder Focus Timer -->
+                <div class="focus-timer-card asgard-card">
+                    <div class="timer-header">
+                        <span class="timer-icon">⚡</span>
+                        <h3>Thor's Thunder Timer</h3>
+                    </div>
+                    <div class="timer-display" id="timer-display">25:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-sm btn-primary asgard-glow-btn" id="timer-toggle-btn" onclick="toggleTimer()">Strike Anvil (Start)</button>
+                        <button class="btn btn-sm btn-ghost" onclick="resetTimer()">Reset</button>
+                    </div>
+                    <p class="timer-hint">Use 25-minute Pomodoro sprints to forge unbroken focus without burnout.</p>
+                </div>
+
+                <!-- Stage Progress Snapshot -->
+                <div class="stage-snapshot-card asgard-card">
+                    <h3>Current Stage Velocity</h3>
+                    <div class="snapshot-stage-name">{{ current_stage.title }}</div>
+                    <div class="snapshot-bar-wrap">
+                        <div class="snapshot-bar-fill" style="width: {{ current_stage.progress_percentage }}%;"></div>
+                    </div>
+                    <div class="snapshot-meta">
+                        <span>{{ current_stage.completed_tasks_count }} of {{ current_stage.total_tasks_count }} tasks conquered</span>
+                        <strong>{{ current_stage.progress_percentage }}%</strong>
+                    </div>
+                </div>
+
+                <!-- Deity Reminder -->
+                <div class="daily-reminder-card asgard-card">
+                    <div class="reminder-icon">🛡️</div>
+                    <h4>Odin's Study Rule</h4>
+                    <p>"If you get stuck for more than 15 minutes, stop and write down exactly what confuses you. Defining the challenge clearly is 80% of conquering it!"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Focus Timer
+let timerInterval = null;
+let secondsRemaining = 25 * 60;
+let isRunning = false;
+
+function updateTimerDisplay() {
+    const mins = Math.floor(secondsRemaining / 60);
+    const secs = secondsRemaining % 60;
+    const display = document.getElementById('timer-display');
+    if (display) {
+        display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+function toggleTimer() {
+    const btn = document.getElementById('timer-toggle-btn');
+    if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        if (btn) btn.textContent = 'Resume Strike';
+    } else {
+        isRunning = true;
+        if (btn) btn.textContent = 'Pause Focus';
+        timerInterval = setInterval(() => {
+            if (secondsRemaining > 0) {
+                secondsRemaining--;
+                updateTimerDisplay();
+            } else {
+                clearInterval(timerInterval);
+                isRunning = false;
+                alert('⚡ Thunder strike complete! Take a 5-minute breather and celebrate your focus!');
+                resetTimer();
+            }
+        }, 1000);
+    }
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    isRunning = false;
+    secondsRemaining = 25 * 60;
+    updateTimerDisplay();
+    const btn = document.getElementById('timer-toggle-btn');
+    if (btn) btn.textContent = 'Strike Anvil (Start)';
+}
+</script>
+{% endblock %}

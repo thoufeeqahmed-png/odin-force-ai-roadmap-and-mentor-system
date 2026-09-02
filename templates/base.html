@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ODIN FORCE — Supreme AI Roadmap Companion & Asgardian Council{% endblock %}</title>
+    <meta name="description" content="Turn any learning or career goal across any domain into an epic step-by-step roadmap with Odin's vision, Thor's discipline, Loki's hacks, and TA Junior's friendly guidance.">
+    
+    <!-- Google Fonts: Modern Luxury Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/print.css' %}" media="print">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="asgard-theme">
+    <!-- Background Ambient Glow & Starfield -->
+    <div class="bifrost-aurora-bg"></div>
+    <div class="stars-canvas-bg"></div>
+
+    <!-- Top Navigation Bar -->
+    <header class="site-header" id="site-header">
+        <div class="nav-container">
+            <a href="{% url 'home' %}" class="brand-logo" id="nav-brand-logo">
+                <div class="logo-avatar">
+                    <img src="{% static 'images/ta_junior.svg' %}" alt="TA Junior" class="nav-logo-img">
+                    <span class="pulse-dot"></span>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name"><span class="norse-gold">ODIN</span> <span class="accent-text">FORCE</span></span>
+                    <span class="brand-tagline">⚡ Asgardian AI Roadmap Companion</span>
+                </div>
+            </a>
+
+            <nav class="main-nav" id="main-nav">
+                <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" id="nav-home">
+                    <span class="nav-icon">🌌</span>
+                    <span>Home & Council</span>
+                </a>
+                <a href="{% url 'generate_roadmap' %}" class="nav-link {% if request.resolver_match.url_name == 'generate_roadmap' %}active{% endif %}" id="nav-generate">
+                    <span class="nav-icon">⚔️</span>
+                    <span>Forge Roadmap</span>
+                </a>
+                <a href="{% url 'daily_guidance' %}" class="nav-link {% if 'daily' in request.resolver_match.url_name %}active{% endif %}" id="nav-daily">
+                    <span class="nav-icon">⚡</span>
+                    <span>Daily Guidance</span>
+                </a>
+                <a href="{% url 'progress' %}" class="nav-link {% if 'progress' in request.resolver_match.url_name %}active{% endif %}" id="nav-progress">
+                    <span class="nav-icon">🛡️</span>
+                    <span>Progress & Valhalla</span>
+                </a>
+                <a href="{% url 'roadmap_history' %}" class="nav-link {% if request.resolver_match.url_name == 'roadmap_history' %}active{% endif %}" id="nav-history">
+                    <span class="nav-icon">📜</span>
+                    <span>Roadmap Library</span>
+                </a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="{% url 'generate_roadmap' %}" class="btn btn-sm btn-primary header-cta" id="header-create-btn">
+                    <span class="btn-rune">ᚱ</span>
+                    <span>Create Roadmap</span>
+                    <span class="btn-arrow">→</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Global Toast / Message Notifications -->
+    {% if messages %}
+    <div class="toast-container" id="toast-container">
+        {% for message in messages %}
+        <div class="toast-message toast-{{ message.tags }}">
+            <span class="toast-icon">
+                {% if message.tags == 'success' %}⚡{% elif message.tags == 'error' %}⚠️{% else %}👁️{% endif %}
+            </span>
+            <div class="toast-content">{{ message }}</div>
+            <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content Block -->
+    <main class="site-main" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo-row">
+                    <div class="logo-avatar sm">
+                        <img src="{% static 'images/ta_junior.svg' %}" alt="TA Junior" class="nav-logo-img">
+                    </div>
+                    <span class="brand-name"><span class="norse-gold">ODIN</span> <span class="accent-text">FORCE</span></span>
+                </div>
+                <p class="footer-desc">
+                    Forged with Allfather Odin's strategic vision, Thor's relentless discipline, Loki's cunning hacks, and TA Junior's warm daily encouragement.
+                </p>
+                <div class="footer-deity-pills">
+                    <span class="deity-badge odin-badge">👁️ Odin Strategy</span>
+                    <span class="deity-badge thor-badge">⚡ Thor Drills</span>
+                    <span class="deity-badge loki-badge">🐍 Loki Hacks</span>
+                    <span class="deity-badge ta-badge">🌱 TA Junior Guide</span>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4 class="footer-heading">Asgardian Features</h4>
+                    <ul>
+                        <li><a href="{% url 'generate_roadmap' %}">⚡ Roadmap Forge</a></li>
+                        <li><a href="{% url 'daily_guidance' %}">🔨 Thor's Daily Action Plan</a></li>
+                        <li><a href="{% url 'progress' %}">🏆 Valhalla Progress Dashboard</a></li>
+                        <li><a href="{% url 'roadmap_history' %}">📜 Saved Runes & History</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">Popular Realms</h4>
+                    <ul>
+                        <li><a href="{% url 'generate_roadmap' %}?domain=Artificial+Intelligence">🤖 Artificial Intelligence</a></li>
+                        <li><a href="{% url 'generate_roadmap' %}?domain=Web+Development">💻 Web Development</a></li>
+                        <li><a href="{% url 'generate_roadmap' %}?domain=Digital+Photography">📷 Digital Photography</a></li>
+                        <li><a href="{% url 'generate_roadmap' %}?domain=Financial+Investing">📈 Financial Investing</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4 class="footer-heading">The Junior Creed</h4>
+                    <p class="footer-quote">
+                        "Tell me your goal. I'll help you find the path. Never worry about knowing everything at once—let's take it one small step at a time."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>© 2026 ODIN FORCE. Powered by Asgardian Wisdom & Friendly AI. Built for all 9 realms.</p>
+                <div class="footer-tag">
+                    <span class="status-indicator"></span> Bifrost Bridge Open • Ready to Guide You
+                </div>
+            </div>
+            <div class="footer-assistant-identity">
+                <p class="assistant-signature">I am the AI assistant of Thoufeeq Ahmed.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

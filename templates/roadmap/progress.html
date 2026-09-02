@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Valhalla Progress Dashboard — {{ roadmap.domain }} — ODIN FORCE{% endblock %}
+
+{% block content %}
+<section class="progress-section asgard-progress">
+    <div class="container">
+        <!-- Header -->
+        <div class="progress-header">
+            <div class="header-left">
+                <div class="progress-badge">
+                    <span class="badge-rune">ᛋ🏆</span>
+                    <span>Valhalla Mastery Analytics</span>
+                </div>
+                <h1 class="page-title">Your Progress: <span class="text-gradient-asgard">{{ roadmap.domain }}</span></h1>
+                <p class="page-subtitle">Track conquered concepts, stage velocity, portfolio projects, and Asgardian milestone badges.</p>
+            </div>
+
+            <div class="header-right">
+                <a href="{% url 'roadmap_detail' pk=roadmap.pk %}" class="btn btn-outline">
+                    <span>View Full Roadmap</span>
+                </a>
+                <a href="{% url 'roadmap_daily_guidance' pk=roadmap.pk %}" class="btn btn-primary asgard-glow-btn">
+                    <span>⚡ Daily Guidance</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Mentor Guidance Card for Progress -->
+        <div class="mentor-guidance-card asgard-card">
+            <div class="guidance-header">
+                <h3>Your Mentor's Progress Message</h3>
+            </div>
+            
+            {% if roadmap.mentor == 'odin' %}
+                <div class="guidance-content mentor-odin-guidance">
+                    <div class="guidance-emoji">👁️</div>
+                    <h4>ODIN's Strategic Assessment</h4>
+                    <p>Your journey progresses with strategic purpose. You have mastered <strong>{{ roadmap.progress_percentage }}%</strong> of your roadmap. Each conquered concept brings you closer to your ultimate vision of <em>'{{ roadmap.goal }}'</em>. The Allfather sees your dedication and approves.</p>
+                </div>
+            {% elif roadmap.mentor == 'thor' %}
+                <div class="guidance-content mentor-thor-guidance">
+                    <div class="guidance-emoji">⚡</div>
+                    <h4>THOR's Motivational Thunder</h4>
+                    <p>By Mjolnir, you've conquered <strong>{{ roadmap.progress_percentage }}%</strong> of your roadmap! Your action-focused dedication is impressive. You've completed <strong>{{ roadmap.completed_projects }}</strong> projects and mastered <strong>{{ roadmap.completed_topics }}</strong> core concepts. Keep striking the anvil!</p>
+                </div>
+            {% elif roadmap.mentor == 'loki' %}
+                <div class="guidance-content mentor-loki-guidance">
+                    <div class="guidance-emoji">🐍</div>
+                    <h4>LOKI's Clever Observation</h4>
+                    <p>Well, well... you've unlocked <strong>{{ roadmap.progress_percentage }}%</strong> of the secrets in <em>'{{ roadmap.domain }}'</em>. Smart! You've found the <strong>{{ roadmap.completed_topics }}</strong> key concepts that matter most. Why struggle with everything when the 20% you've chosen delivers 80% of the value? Brilliant strategy!</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Metric Cards Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card asgard-card">
+                <div class="metric-icon-wrap bg-purple">📈</div>
+                <div class="metric-data">
+                    <span class="metric-number">{{ roadmap.progress_percentage }}%</span>
+                    <span class="metric-label">Overall Conquest</span>
+                </div>
+                <div class="metric-bar-bg">
+                    <div class="metric-bar-fill" style="width: {{ roadmap.progress_percentage }}%;"></div>
+                </div>
+            </div>
+
+            <div class="metric-card asgard-card">
+                <div class="metric-icon-wrap bg-green">📚</div>
+                <div class="metric-data">
+                    <span class="metric-number">{{ roadmap.completed_topics }} / {{ roadmap.total_topics }}</span>
+                    <span class="metric-label">Concepts Mastered</span>
+                </div>
+                <span class="metric-subtext">{{ roadmap.total_topics }} core concepts in total</span>
+            </div>
+
+            <div class="metric-card asgard-card">
+                <div class="metric-icon-wrap bg-blue">🚀</div>
+                <div class="metric-data">
+                    <span class="metric-number">{{ roadmap.completed_projects }} / {{ roadmap.total_projects }}</span>
+                    <span class="metric-label">Projects Built</span>
+                </div>
+                <span class="metric-subtext">Real-world portfolio milestones</span>
+            </div>
+
+            <div class="metric-card asgard-card">
+                <div class="metric-icon-wrap bg-amber">🏆</div>
+                <div class="metric-data">
+                    <span class="metric-number">{{ roadmap.current_stage.order }} of {{ stages|length }}</span>
+                    <span class="metric-label">Current Stage</span>
+                </div>
+                <span class="metric-subtext">{{ roadmap.current_stage.title|truncatechars:28 }}</span>
+            </div>
+        </div>
+
+        <!-- Milestone Badges Showcase -->
+        <div class="milestones-card asgard-card">
+            <div class="card-header-flex">
+                <div class="milestone-title-wrap">
+                    <h3>🏆 Valhalla Runes & Milestones</h3>
+                    <p>Unlock legendary badges as you conquer topics and complete stages.</p>
+                </div>
+                <span class="badge-count-pill">
+                    {% if roadmap.progress_percentage >= 100 %}4/4 Unlocked! 🎉
+                    {% elif roadmap.progress_percentage >= 50 %}2/4 Unlocked!
+                    {% elif roadmap.progress_percentage > 0 %}1/4 Unlocked!
+                    {% else %}0/4 Unlocked{% endif %}
+                </span>
+            </div>
+
+            <div class="badges-row">
+                <!-- Badge 1: First Step -->
+                <div class="achievement-badge {% if roadmap.completed_tasks > 0 %}unlocked{% else %}locked{% endif %}">
+                    <div class="badge-icon-disc">🌱</div>
+                    <div class="badge-info">
+                        <strong>First Strike</strong>
+                        <span>Conquered your first topic</span>
+                    </div>
+                </div>
+
+                <!-- Badge 2: Practice Explorer -->
+                <div class="achievement-badge {% if roadmap.completed_tasks >= 3 %}unlocked{% else %}locked{% endif %}">
+                    <div class="badge-icon-disc">⚡</div>
+                    <div class="badge-info">
+                        <strong>Thor's Momentum</strong>
+                        <span>Completed 3+ learning tasks</span>
+                    </div>
+                </div>
+
+                <!-- Badge 3: Halfway Hero -->
+                <div class="achievement-badge {% if roadmap.progress_percentage >= 50 %}unlocked{% else %}locked{% endif %}">
+                    <div class="badge-icon-disc">🌟</div>
+                    <div class="badge-info">
+                        <strong>Bifrost Halfway Hero</strong>
+                        <span>Reached 50% roadmap progress</span>
+                    </div>
+                </div>
+
+                <!-- Badge 4: Roadmap Graduate -->
+                <div class="achievement-badge {% if roadmap.progress_percentage >= 100 %}unlocked{% else %}locked{% endif %}">
+                    <div class="badge-icon-disc">👑</div>
+                    <div class="badge-info">
+                        <strong>Valhalla Champion</strong>
+                        <span>Conquered the entire realm!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage Velocity Breakdown -->
+        <div class="stages-breakdown-card asgard-card">
+            <h3>Stage-by-Stage Velocity</h3>
+            <p class="section-sub-desc">Detailed progression across each stage of your forged roadmap.</p>
+
+            <div class="stages-progress-list">
+                {% for stage in stages %}
+                <div class="stage-progress-row">
+                    <div class="stage-info-col">
+                        <div class="stage-row-badge">Stage {{ stage.order }}</div>
+                        <div class="stage-row-title-wrap">
+                            <h4>{{ stage.title }}</h4>
+                            <span class="stage-est-dur">⏱️ {{ stage.estimated_duration }}</span>
+                        </div>
+                    </div>
+
+                    <div class="stage-meter-col">
+                        <div class="meter-bar-bg">
+                            <div class="meter-bar-fill" style="width: {{ stage.progress_percentage }}%;"></div>
+                        </div>
+                        <span class="meter-percent">{{ stage.progress_percentage }}%</span>
+                    </div>
+
+                    <div class="stage-tasks-tally-col">
+                        <span><strong>{{ stage.completed_tasks_count }}</strong> / {{ stage.total_tasks_count }} Tasks</span>
+                    </div>
+
+                    <div class="stage-action-col">
+                        <a href="{% url 'roadmap_detail' pk=roadmap.pk %}#stage-{{ stage.pk }}" class="btn btn-sm btn-ghost">
+                            View Tasks →
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ODIN FORCE — Supreme AI Roadmap Assistant & Norse Council{% endblock %}
+
+{% block content %}
+<!-- Opening Hero Section with Norse Pantheon -->
+<section class="hero-section asgard-hero">
+    <div class="hero-bg-glow"></div>
+    <div class="container hero-container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-rune">ᚩᛞᛁᚾ</span>
+                <span class="badge-icon">⚡</span>
+                <span class="badge-text">The Supreme Asgardian AI Roadmap Intelligence</span>
+            </div>
+
+            <h1 class="hero-title">
+                Unleash The <br>
+                <span class="text-gradient-asgard">ODIN FORCE</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                "Tell me your goal across any realm. The Council of Asgard will forge your path."
+            </p>
+
+            <p class="hero-description">
+                Conquer <strong>Artificial Intelligence</strong>, master <strong>Web Engineering</strong>, capture <strong>Digital Arts</strong>, command <strong>Finance</strong>, or forge any custom craft. <strong>ODIN FORCE</strong> synthesizes Allfather Odin's strategic vision, Thor's daily thunder drills, and Loki's clever shortcuts into a gentle, step-by-step master plan.
+            </p>
+
+            <div class="hero-actions">
+                <a href="{% url 'generate_roadmap' %}" class="btn btn-lg btn-primary asgard-glow-btn" id="hero-create-roadmap-btn">
+                    <span class="btn-rune">ᚱ</span>
+                    <span>Forge My Roadmap</span>
+                    <span class="btn-icon-right">⚡</span>
+                </a>
+                <a href="#council-section" class="btn btn-lg btn-outline" id="hero-council-btn">
+                    <span>Meet The Council</span>
+                    <span class="btn-arrow">↓</span>
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-icon-row">
+                        <span class="sys-icon">🌌</span>
+                        <span class="stat-number">9 Realms</span>
+                    </div>
+                    <span class="stat-label">Universal Any Domain</span>
+                </div>
+                <div class="stat-separator"></div>
+                <div class="stat-item">
+                    <div class="stat-icon-row">
+                        <span class="sys-icon">⚡</span>
+                        <span class="stat-number">Step-by-Step</span>
+                    </div>
+                    <span class="stat-label">Daily Thunder Drills</span>
+                </div>
+                <div class="stat-separator"></div>
+                <div class="stat-item">
+                    <div class="stat-icon-row">
+                        <span class="sys-icon">🛡️</span>
+                        <span class="stat-number">Zero Jargon</span>
+                    </div>
+                    <span class="stat-label">Kind & Supportive</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Deity Preview Card -->
+        <div class="hero-card-preview">
+            <div class="pantheon-hero-card">
+                <div class="pantheon-card-header">
+                    <div class="deity-mini-avatar">
+                        <img src="{% static 'images/ta_junior.svg' %}" alt="ODIN FORCE" class="avatar-mini-img">
+                    </div>
+                    <div>
+                        <h3 class="pantheon-card-name">ODIN FORCE Council</h3>
+                        <span class="pantheon-card-status"><span class="status-dot"></span> Bifrost Bridge Active • Ready to Forge</span>
+                    </div>
+                </div>
+
+                <div class="pantheon-speech-bubble" id="hero-speech-bubble">
+                    <p class="bubble-greeting">
+                        "Welcome, traveler! Don't be overwhelmed by the vastness of the mountain. With the <strong>ODIN FORCE</strong>, we break every great ambition into bite-sized, daily triumphs. Which realm do you seek to conquer today?"
+                    </p>
+                </div>
+
+                <div class="pantheon-quick-realms">
+                    <span class="box-label">⚡ Select a Realm to Quick-Start:</span>
+                    <div class="quick-domain-pills">
+                        <a href="{% url 'generate_roadmap' %}?domain=Artificial+Intelligence" class="domain-pill">
+                            <span class="pill-glyph">🤖</span> AI & Machine Learning
+                        </a>
+                        <a href="{% url 'generate_roadmap' %}?domain=Web+Development" class="domain-pill">
+                            <span class="pill-glyph">💻</span> Full-Stack Web Dev
+                        </a>
+                        <a href="{% url 'generate_roadmap' %}?domain=Digital+Photography" class="domain-pill">
+                            <span class="pill-glyph">📷</span> Photography Studio
+                        </a>
+                        <a href="{% url 'generate_roadmap' %}?domain=Financial+Investing" class="domain-pill">
+                            <span class="pill-glyph">📈</span> Investing & Markets
+                        </a>
+                        <a href="{% url 'generate_roadmap' %}?domain=UI%2FUX+Design" class="domain-pill">
+                            <span class="pill-glyph">🎨</span> UI/UX Product Design
+                        </a>
+                        <a href="{% url 'generate_roadmap' %}?domain=Game+Development" class="domain-pill">
+                            <span class="pill-glyph">🎮</span> Game Development
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Norse Pantheon Deity Mentors Opening Showcase -->
+<section class="pantheon-showcase-section" id="council-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <div class="section-badge-center">
+                <span class="badge-icon">👑</span>
+                <span>The Asgardian Council of Learning</span>
+            </div>
+            <h2 class="section-title">Guided by the <span class="text-gradient-asgard">Gods of Asgard</span></h2>
+            <p class="section-subtitle">
+                Four distinct forces unite inside <strong>ODIN FORCE</strong> to guarantee your success from initial spark to Valhalla mastery.
+            </p>
+        </div>
+
+        <div class="pantheon-cards-grid">
+            <!-- 1. ODIN - The Allfather -->
+            <div class="deity-card odin-card" onclick="selectCouncilMentor('odin')">
+                <div class="deity-img-wrapper">
+                    <img src="{% static 'images/odin.jpg' %}" alt="Allfather Odin" class="deity-portrait-img">
+                    <div class="deity-glow-overlay gold-glow"></div>
+                    <div class="deity-tag">👁️ ALLFATHER ODIN</div>
+                </div>
+                <div class="deity-card-body">
+                    <div class="deity-role-title">Strategic Vision & Architecture</div>
+                    <p class="deity-desc">
+                        Sees the entire learning journey from the high throne of Hlidskjalf. Shapes your overarching curriculum and foundational mastery.
+                    </p>
+                    <div class="deity-quote-pill">
+                        <em>"Sacrifice haste for depth. The master sees the whole battlefield."</em>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. THOR - God of Thunder -->
+            <div class="deity-card thor-card" onclick="selectCouncilMentor('thor')">
+                <div class="deity-img-wrapper">
+                    <img src="{% static 'images/thor.jpg' %}" alt="Thor God of Thunder" class="deity-portrait-img">
+                    <div class="deity-glow-overlay cyan-glow"></div>
+                    <div class="deity-tag">⚡ THOR THE THUNDERER</div>
+                </div>
+                <div class="deity-card-body">
+                    <div class="deity-role-title">Relentless Daily Drills & Grit</div>
+                    <p class="deity-desc">
+                        Brings the raw hammer power of Mjolnir to your practice. Pushes you through daily 25-minute Pomodoro sprints and unbreakable focus.
+                    </p>
+                    <div class="deity-quote-pill">
+                        <em>"Strike the anvil daily! Action shatters every doubt."</em>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. LOKI - The Trickster -->
+            <div class="deity-card loki-card" onclick="selectCouncilMentor('loki')">
+                <div class="deity-img-wrapper">
+                    <img src="{% static 'images/loki.svg' %}" alt="Loki The Trickster" class="deity-portrait-img">
+                    <div class="deity-glow-overlay emerald-glow"></div>
+                    <div class="deity-tag">🐍 LOKI THE TRICKSTER</div>
+                </div>
+                <div class="deity-card-body">
+                    <div class="deity-role-title">Creative Hacks & Shortcuts</div>
+                    <p class="deity-desc">
+                        Finds the 80/20 leverage points, clever debugging tricks, and out-of-the-box hacks to master difficult concepts 3x faster.
+                    </p>
+                    <div class="deity-quote-pill">
+                        <em>"Why march the heavy road when there's an open secret door?"</em>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. ODIN FORCE - The Faithful Companion -->
+            <div class="deity-card ta-card active-card" onclick="selectCouncilMentor('ta_junior')">
+                <div class="deity-img-wrapper">
+                    <img src="{% static 'images/ta_junior.svg' %}" alt="ODIN FORCE Companion" class="deity-portrait-img">
+                    <div class="deity-glow-overlay blue-glow"></div>
+                    <div class="deity-tag">🌱 ODIN FORCE COMPANION</div>
+                </div>
+                <div class="deity-card-body">
+                    <div class="deity-role-title">Kindness, Pacing & Encouragement</div>
+                    <p class="deity-desc">
+                        Translates divine power into friendly, zero-judgment daily actions. Cheers you on, keeps score, and celebrates every small milestone.
+                    </p>
+                    <div class="deity-quote-pill">
+                        <em>"Take a breath. One tiny step today creates massive momentum."</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Council Voice Box -->
+        <div class="council-live-box" id="council-live-box">
+            <div class="council-live-header">
+                <div class="council-live-avatar" id="council-live-avatar">
+                    <img src="{% static 'images/ta_junior.svg' %}" alt="Mentor" id="council-live-img">
+                </div>
+                <div class="council-live-meta">
+                    <span class="council-live-tag" id="council-live-tag">🌱 ODIN FORCE COMPANION</span>
+                    <h3 class="council-live-heading" id="council-live-heading">Interactive Council Counsel</h3>
+                </div>
+            </div>
+            <div class="council-live-body" id="council-live-body">
+                <p id="council-live-text">
+                    "Click on any Council member above (Odin, Thor, Loki, or Odin Force) to receive their personalized advice for your journey!"
+                </p>
+            </div>
+            <div class="council-live-action">
+                <a href="{% url 'generate_roadmap' %}" class="btn btn-primary btn-sm">
+                    <span>Forge Roadmap with This Blessing →</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Universal Domain Support Section -->
+<section class="domains-showcase-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-tag">Universal Flexibility Across All 9 Realms</span>
+            <h2 class="section-title">Works for <span class="text-gradient-asgard">ANY Goal & Domain</span></h2>
+            <p class="section-subtitle">Tech, Creative Arts, Business, Sciences, or Hobbies—ODIN FORCE builds custom paths for everything.</p>
+        </div>
+
+        <div class="domains-grid">
+            <div class="domain-card asgard-card">
+                <div class="domain-icon-wrap">
+                    <span class="domain-icon">🤖</span>
+                </div>
+                <h3>Artificial Intelligence</h3>
+                <p>Mathematical Foundations, Scikit-Learn, PyTorch, Transformers, LLM RAG, and MLOps Cloud deployment.</p>
+                <a href="{% url 'generate_roadmap' %}?domain=Artificial+Intelligence" class="domain-link">Forge AI Roadmap →</a>
+            </div>
+
+            <div class="domain-card asgard-card">
+                <div class="domain-icon-wrap">
+                    <span class="domain-icon">🌐</span>
+                </div>
+                <h3>Web Development</h3>
+                <p>Semantic HTML5, Modern CSS, ES6+ JavaScript, Backend Architecture, PostgreSQL, and Cloud DevOps.</p>
+                <a href="{% url 'generate_roadmap' %}?domain=Web+Development" class="domain-link">Forge Web Dev Roadmap →</a>
+            </div>
+
+            <div class="domain-card asgard-card">
+                <div class="domain-icon-wrap">
+                    <span class="domain-icon">📷</span>
+                </div>
+                <h3>Digital Photography</h3>
+                <p>Exposure Triangle, Composition, Natural & Studio Lighting, Lightroom RAW Grading, and Portfolio Curation.</p>
+                <a href="{% url 'generate_roadmap' %}?domain=Digital+Photography" class="domain-link">Forge Photography Roadmap →</a>
+            </div>
+
+            <div class="domain-card asgard-card">
+                <div class="domain-icon-wrap">
+                    <span class="domain-icon">💼</span>
+                </div>
+                <h3>Business & Finance</h3>
+                <p>Cash flows, Valuation Multiples, Moat Analysis, Index Portfolios, Risk Drift, and Investment Memos.</p>
+                <a href="{% url 'generate_roadmap' %}?domain=Financial+Investing" class="domain-link">Forge Finance Roadmap →</a>
+            </div>
+
+            <div class="domain-card asgard-card">
+                <div class="domain-icon-wrap">
+                    <span class="domain-icon">🎨</span>
+                </div>
+                <h3>UI/UX & Product Design</h3>
+                <p>Design Thinking, Wireframing, Figma Auto-Layout, Design Tokens, User Testing & High-Fidelity Prototypes.</p>
+                <a href="{% url 'generate_roadmap' %}?domain=UI%2FUX+Design" class="domain-link">Forge UI/UX Roadmap →</a>
+            </div>
+
+            <div class="domain-card asgard-card highlight-custom">
+                <div class="domain-icon-wrap">
+                    <span class="domain-icon">✨</span>
+                </div>
+                <h3>Your Passion or Custom Domain</h3>
+                <p>Music Production, Astronomy, Cooking, Game Dev, Public Speaking, Fitness, Writing, or any dream!</p>
+                <a href="{% url 'generate_roadmap' %}" class="domain-link">Enter Custom Goal →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How ODIN FORCE Works Section -->
+<section class="how-it-works-section" id="how-it-works">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-tag">The 4 Steps of the Bifrost Journey</span>
+            <h2 class="section-title">How <span class="text-gradient-asgard">ODIN FORCE</span> Guides You</h2>
+            <p class="section-subtitle">From initial spark to confident mastery in 4 friendly, structured steps.</p>
+        </div>
+
+        <div class="steps-flow-grid">
+            <div class="flow-step-card asgard-step">
+                <div class="step-rune">ᛟ</div>
+                <div class="step-icon">🎯</div>
+                <h3>1. State Your Goal</h3>
+                <p>Tell ODIN FORCE your domain, current skill level, target timeline, and available hours per day.</p>
+            </div>
+
+            <div class="flow-step-card asgard-step">
+                <div class="step-rune">ᚱ</div>
+                <div class="step-icon">🧠</div>
+                <h3>2. Council AI Synthesis</h3>
+                <p>ODIN FORCE analyzes your background and builds a structured, stage-by-stage personalized curriculum.</p>
+            </div>
+
+            <div class="flow-step-card asgard-step">
+                <div class="step-rune">ᚦ</div>
+                <div class="step-icon">⚡</div>
+                <h3>3. Daily Thunder Focus</h3>
+                <p>Receive clear daily focus topics, Thor's hands-on drills, and Loki's hacks without overwhelm.</p>
+            </div>
+
+            <div class="flow-step-card asgard-step">
+                <div class="step-rune">ᛋ</div>
+                <div class="step-icon">🏆</div>
+                <h3>4. Valhalla Progress</h3>
+                <p>Check off completed topics, unlock milestone badges, build real portfolio projects, and celebrate wins!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Banner -->
+<section class="cta-banner-section">
+    <div class="container">
+        <div class="cta-banner asgard-cta-banner">
+            <div class="cta-text">
+                <div class="cta-tag">⚡ READY FOR ASGARDIAN MASTERY?</div>
+                <h2>Forge Your Custom Roadmap Today</h2>
+                <p>Transform your ambitions into an actionable plan in less than 30 seconds.</p>
+            </div>
+            <div class="cta-button-wrapper">
+                <a href="{% url 'generate_roadmap' %}" class="btn btn-lg btn-primary asgard-glow-btn" id="cta-bottom-btn">
+                    <span class="btn-rune">ᚱ</span>
+                    <span>Forge My Roadmap Now</span>
+                    <span class="btn-icon-right">⚡</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+const mentorQuotes = {
+    'odin': {
+        name: '👁️ ALLFATHER ODIN',
+        heading: "Allfather Odin's Strategic Counsel",
+        img: "{% static 'images/odin.jpg' %}",
+        text: "“True mastery is forged not through haste, but through seeing the whole battlefield. Focus deeply on foundational principles, let memory anchor your practice, and keep your eye fixed on the overarching vision.”"
+    },
+    'thor': {
+        name: '⚡ THOR THE THUNDERER',
+        heading: "Thor's Thunderous Battle Challenge",
+        img: "{% static 'images/thor.jpg' %}",
+        text: "“By Mjolnir! Reading alone builds no warriors! Strike the anvil with 25 minutes of unbroken daily practice. Action dispels fear and shatters every obstacle in your path!”"
+    },
+    'loki': {
+        name: '🐍 LOKI THE TRICKSTER',
+        heading: "Loki's Cunning 80/20 Shortcut",
+        img: "{% static 'images/loki.svg' %}",
+        text: "“Why march the heavy road? Find the 20% of core concepts that drive 80% of results. Avoid the top 3 beginner mistakes, reverse-engineer great work, and turn learning into playful mischief!”"
+    },
+    'ta_junior': {
+        name: '🌱 ODIN FORCE COMPANION',
+        heading: "ODIN FORCE's Friendly Encouragement",
+        img: "{% static 'images/ta_junior.svg' %}",
+        text: "“Don't stress about knowing everything right now. We'll take it one tiny, friendly step at a time. Showing up every day with kindness toward yourself is your greatest superpower!”"
+    }
+};
+
+function selectCouncilMentor(mentorKey) {
+    // Remove active class from all cards
+    document.querySelectorAll('.deity-card').forEach(card => card.classList.remove('active-card'));
+    
+    // Add active class to clicked card
+    const targetCard = document.querySelector(`.${mentorKey}-card`);
+    if (targetCard) targetCard.classList.add('active-card');
+
+    const mentor = mentorQuotes[mentorKey];
+    if (mentor) {
+        document.getElementById('council-live-tag').textContent = mentor.name;
+        document.getElementById('council-live-heading').textContent = mentor.heading;
+        document.getElementById('council-live-img').src = mentor.img;
+        document.getElementById('council-live-text').textContent = mentor.text;
+
+        const liveBox = document.getElementById('council-live-box');
+        liveBox.classList.add('pulse-highlight');
+        setTimeout(() => liveBox.classList.remove('pulse-highlight'), 600);
+    }
+}
+</script>
+{% endblock %}
