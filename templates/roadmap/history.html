@@ -46,8 +46,22 @@
             <div class="history-card asgard-card" id="history-card-{{ roadmap.pk }}">
                 <div class="history-card-top">
                     <div class="domain-pill-sm">{{ roadmap.domain }}</div>
-                    <div class="history-date">{{ roadmap.created_at|date:"M d, Y" }}</div>
+                    <div class="history-card-top-right">
+                        <span class="history-mentor-pill">
+                            {% if roadmap.mentor == 'odin' %}
+                                <img src="{% static 'images/mentor_odin.jpg' %}" alt="Odin" class="mentor-mini-thumb"> Odin
+                            {% elif roadmap.mentor == 'thor' %}
+                                <img src="{% static 'images/mentor_thor.jpg' %}" alt="Thor" class="mentor-mini-thumb"> Thor
+                            {% elif roadmap.mentor == 'loki' %}
+                                <img src="{% static 'images/mentor_loki.jpg' %}" alt="Loki" class="mentor-mini-thumb"> Loki
+                            {% else %}
+                                <img src="{% static 'images/mentor_odinforce.jpg' %}" alt="ODIN FORCE" class="mentor-mini-thumb"> ODIN FORCE
+                            {% endif %}
+                        </span>
+                        <div class="history-date">{{ roadmap.created_at|date:"M d, Y" }}</div>
+                    </div>
                 </div>
+
 
                 <h3 class="history-goal-title">
                     <a href="{% url 'roadmap_detail' pk=roadmap.pk %}">{{ roadmap.goal }}</a>

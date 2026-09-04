@@ -152,6 +152,28 @@
                     </div>
                     {% endif %}
                 </div>
+            {% else %}
+                <div class="mentor-card-content mentor-ta">
+                    <div class="mentor-image-wrap">
+                        <img src="{% static 'images/mentor_odinforce.jpg' %}" alt="ODIN FORCE - Your Mentor" class="mentor-avatar-large">
+                    </div>
+                    <div class="mentor-info">
+                        <h4 class="mentor-name">🌱 ODIN FORCE COMPANION</h4>
+                        <p class="mentor-role">Kind, Encouraging & Patient</p>
+                        <p class="mentor-desc">ODIN FORCE provides steady support, zero-judgment encouragement, and breaks complex journeys into bite-sized daily triumphs.</p>
+                        <div class="mentor-strengths">
+                            <span class="strength-tag">• Consistent Pacing</span>
+                            <span class="strength-tag">• Zero-Judgment Support</span>
+                            <span class="strength-tag">• Daily Momentum</span>
+                            <span class="strength-tag">• Step-by-Step Clarity</span>
+                        </div>
+                    </div>
+                    {% if roadmap.mentor_greeting %}
+                    <div class="mentor-greeting-box">
+                        {{ roadmap.mentor_greeting|linebreaksbr }}
+                    </div>
+                    {% endif %}
+                </div>
             {% endif %}
         </div>
         <div class="council-wisdom-deck asgard-card">
@@ -184,7 +206,7 @@
                 <!-- 1. Odin Panel -->
                 <div class="deity-panel active-panel" id="panel-odin">
                     <div class="deity-panel-header">
-                        <img src="{% static 'images/odin.jpg' %}" alt="Allfather Odin" class="panel-deity-avatar">
+                        <img src="{% static 'images/mentor_odin.jpg' %}" alt="Allfather Odin" class="panel-deity-avatar">
                         <div>
                             <h4>Allfather Odin's Strategic Blueprint</h4>
                             <span class="panel-deity-role">God of Wisdom & Master of Runes</span>
@@ -198,7 +220,7 @@
                 <!-- 2. Thor Panel -->
                 <div class="deity-panel" id="panel-thor" style="display: none;">
                     <div class="deity-panel-header">
-                        <img src="{% static 'images/thor.jpg' %}" alt="Thor" class="panel-deity-avatar">
+                        <img src="{% static 'images/mentor_thor.jpg' %}" alt="Thor" class="panel-deity-avatar">
                         <div>
                             <h4>Thor's Thunderous Practice Mandate</h4>
                             <span class="panel-deity-role">God of Thunder & Relentless Execution</span>
@@ -212,7 +234,7 @@
                 <!-- 3. Loki Panel -->
                 <div class="deity-panel" id="panel-loki" style="display: none;">
                     <div class="deity-panel-header">
-                        <img src="{% static 'images/loki.svg' %}" alt="Loki" class="panel-deity-avatar">
+                        <img src="{% static 'images/mentor_loki.jpg' %}" alt="Loki" class="panel-deity-avatar">
                         <div>
                             <h4>Loki's 80/20 Cunning Hacks</h4>
                             <span class="panel-deity-role">Master of Mischief, Shortcuts & Problem Inversion</span>
@@ -226,7 +248,7 @@
                 <!-- 4. ODIN FORCE Panel -->
                 <div class="deity-panel" id="panel-ta" style="display: none;">
                     <div class="deity-panel-header">
-                        <img src="{% static 'images/ta_junior.svg' %}" alt="ODIN FORCE" class="panel-deity-avatar">
+                        <img src="{% static 'images/mentor_odinforce.jpg' %}" alt="ODIN FORCE" class="panel-deity-avatar">
                         <div>
                             <h4>ODIN FORCE Daily Companion Advice</h4>
                             <span class="panel-deity-role">Your Faithful, Kind Learning Companion</span>
@@ -244,6 +266,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Main Roadmap Stages Container -->

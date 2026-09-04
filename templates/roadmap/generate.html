@@ -151,11 +151,26 @@
                             {{ form.mentor.label }}
                         </label>
                         <span class="field-help">{{ form.mentor.help_text }}</span>
-                        <div class="mentor-radio-group">
+                        <div class="mentor-radio-grid">
                             {% for radio in form.mentor %}
-                            <label class="mentor-radio-label">
+                            <label class="mentor-select-tile">
                                 {{ radio.tag }}
-                                <span class="radio-text">{{ radio.choice_label }}</span>
+                                <div class="mentor-tile-body">
+                                    <div class="mentor-tile-thumb">
+                                        {% if radio.data.value == 'odin' %}
+                                            <img src="{% static 'images/mentor_odin.jpg' %}" alt="Odin" class="tile-img">
+                                        {% elif radio.data.value == 'thor' %}
+                                            <img src="{% static 'images/mentor_thor.jpg' %}" alt="Thor" class="tile-img">
+                                        {% elif radio.data.value == 'loki' %}
+                                            <img src="{% static 'images/mentor_loki.jpg' %}" alt="Loki" class="tile-img">
+                                        {% else %}
+                                            <img src="{% static 'images/mentor_odinforce.jpg' %}" alt="Auto / ODIN FORCE" class="tile-img">
+                                        {% endif %}
+                                    </div>
+                                    <div class="mentor-tile-text">
+                                        <span class="tile-label">{{ radio.choice_label }}</span>
+                                    </div>
+                                </div>
                             </label>
                             {% endfor %}
                         </div>
@@ -180,9 +195,10 @@
             <div class="generator-sidebar">
                 <div class="assistant-helper-card asgard-card">
                     <div class="helper-avatar-box">
-                        <img src="{% static 'images/ta_junior.svg' %}" alt="ODIN FORCE" class="helper-avatar-img">
+                        <img src="{% static 'images/mentor_odinforce.jpg' %}" alt="ODIN FORCE" class="helper-avatar-img">
                         <div class="helper-status-tag">Bifrost Ready • Active</div>
                     </div>
+
 
                     <h3 class="helper-title">Message from the Council</h3>
                     

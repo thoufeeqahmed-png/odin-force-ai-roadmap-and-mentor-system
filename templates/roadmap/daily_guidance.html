@@ -57,8 +57,17 @@
                         <p>"Here's the secret: 80% of today's value comes from just understanding this one core concept. Skip the boring stuff and focus on what matters. Smart learning wins!"</p>
                     </div>
                 </div>
+            {% else %}
+                <div class="mentor-display mentor-ta">
+                    <img src="{% static 'images/mentor_odinforce.jpg' %}" alt="ODIN FORCE" class="mentor-daily-avatar">
+                    <div class="mentor-daily-message">
+                        <h4>🌱 ODIN FORCE Companion</h4>
+                        <p>"Today is all about taking one small, focused step forward. Be patient with yourself, stay curious, and remember that consistent small actions lead to mastery!"</p>
+                    </div>
+                </div>
             {% endif %}
         </div>
+
 
         <div class="daily-grid">
             <!-- Main Daily Guidance Card -->

@@ -38,8 +38,13 @@ class RoadmapGenerationForm(forms.ModelForm):
             ('loki', 'LOKI — Creative & Problem-solving (Innovation, creative subjects)'),
         ],
         initial='auto',
+        required=False,
         widget=forms.RadioSelect(attrs={'class': 'form-radio'})
     )
+
+    def clean_mentor(self):
+        return self.cleaned_data.get('mentor') or 'auto'
+
 
     class Meta:
         model = Roadmap

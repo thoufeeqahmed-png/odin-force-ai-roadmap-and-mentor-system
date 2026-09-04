@@ -52,10 +52,13 @@ class Command(BaseCommand):
                 duration=s["duration"],
                 existing_skills=s["existing_skills"],
                 user_name=s["user_name"],
+                mentor=ai_data.get("selected_mentor", "odin" if "AI" in s["domain"] else "loki"),
                 greeting_message=ai_data.get("greeting_message", ""),
                 junior_advice=ai_data.get("junior_advice", ""),
+                mentor_greeting=ai_data.get("mentor_greeting", ""),
                 roadmap_content=json.dumps(ai_data, indent=2)
             )
+
 
             for s_idx, stage_info in enumerate(ai_data.get("stages", []), start=1):
                 stage = RoadmapStage.objects.create(

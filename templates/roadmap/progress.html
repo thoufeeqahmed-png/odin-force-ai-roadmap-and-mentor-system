@@ -35,24 +35,47 @@
             
             {% if roadmap.mentor == 'odin' %}
                 <div class="guidance-content mentor-odin-guidance">
-                    <div class="guidance-emoji">👁️</div>
-                    <h4>ODIN's Strategic Assessment</h4>
-                    <p>Your journey progresses with strategic purpose. You have mastered <strong>{{ roadmap.progress_percentage }}%</strong> of your roadmap. Each conquered concept brings you closer to your ultimate vision of <em>'{{ roadmap.goal }}'</em>. The Allfather sees your dedication and approves.</p>
+                    <div class="guidance-mentor-avatar-wrap">
+                        <img src="{% static 'images/mentor_odin.jpg' %}" alt="ODIN" class="guidance-mentor-avatar">
+                    </div>
+                    <div class="guidance-mentor-text">
+                        <h4>👁️ ODIN's Strategic Assessment</h4>
+                        <p>Your journey progresses with strategic purpose. You have mastered <strong>{{ roadmap.progress_percentage }}%</strong> of your roadmap. Each conquered concept brings you closer to your ultimate vision of <em>'{{ roadmap.goal }}'</em>. The Allfather sees your dedication and approves.</p>
+                    </div>
                 </div>
             {% elif roadmap.mentor == 'thor' %}
                 <div class="guidance-content mentor-thor-guidance">
-                    <div class="guidance-emoji">⚡</div>
-                    <h4>THOR's Motivational Thunder</h4>
-                    <p>By Mjolnir, you've conquered <strong>{{ roadmap.progress_percentage }}%</strong> of your roadmap! Your action-focused dedication is impressive. You've completed <strong>{{ roadmap.completed_projects }}</strong> projects and mastered <strong>{{ roadmap.completed_topics }}</strong> core concepts. Keep striking the anvil!</p>
+                    <div class="guidance-mentor-avatar-wrap">
+                        <img src="{% static 'images/mentor_thor.jpg' %}" alt="THOR" class="guidance-mentor-avatar">
+                    </div>
+                    <div class="guidance-mentor-text">
+                        <h4>⚡ THOR's Motivational Thunder</h4>
+                        <p>By Mjolnir, you've conquered <strong>{{ roadmap.progress_percentage }}%</strong> of your roadmap! Your action-focused dedication is impressive. You've completed <strong>{{ roadmap.completed_projects }}</strong> projects and mastered <strong>{{ roadmap.completed_topics }}</strong> core concepts. Keep striking the anvil!</p>
+                    </div>
                 </div>
             {% elif roadmap.mentor == 'loki' %}
                 <div class="guidance-content mentor-loki-guidance">
-                    <div class="guidance-emoji">🐍</div>
-                    <h4>LOKI's Clever Observation</h4>
-                    <p>Well, well... you've unlocked <strong>{{ roadmap.progress_percentage }}%</strong> of the secrets in <em>'{{ roadmap.domain }}'</em>. Smart! You've found the <strong>{{ roadmap.completed_topics }}</strong> key concepts that matter most. Why struggle with everything when the 20% you've chosen delivers 80% of the value? Brilliant strategy!</p>
+                    <div class="guidance-mentor-avatar-wrap">
+                        <img src="{% static 'images/mentor_loki.jpg' %}" alt="LOKI" class="guidance-mentor-avatar">
+                    </div>
+                    <div class="guidance-mentor-text">
+                        <h4>🐍 LOKI's Clever Observation</h4>
+                        <p>Well, well... you've unlocked <strong>{{ roadmap.progress_percentage }}%</strong> of the secrets in <em>'{{ roadmap.domain }}'</em>. Smart! You've found the <strong>{{ roadmap.completed_topics }}</strong> key concepts that matter most. Why struggle with everything when the 20% you've chosen delivers 80% of the value? Brilliant strategy!</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="guidance-content mentor-ta-guidance">
+                    <div class="guidance-mentor-avatar-wrap">
+                        <img src="{% static 'images/mentor_odinforce.jpg' %}" alt="ODIN FORCE" class="guidance-mentor-avatar">
+                    </div>
+                    <div class="guidance-mentor-text">
+                        <h4>🌱 ODIN FORCE's Cheerful Review</h4>
+                        <p>Look at how far you've come! You've conquered <strong>{{ roadmap.progress_percentage }}%</strong> of your journey. Remember that every master was once a beginner who showed up each day. Let's keep building this wonderful momentum together!</p>
+                    </div>
                 </div>
             {% endif %}
         </div>
+
 
         <!-- Metric Cards Grid -->
         <div class="metrics-grid">

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: odin-force-ai
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
+    startCommand: "gunicorn odin_ta_junior.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.0
+      - key: DJANGO_SETTINGS_MODULE
+        value: odin_ta_junior.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
